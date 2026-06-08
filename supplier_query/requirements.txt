@@ -1,0 +1,23 @@
+# -*- coding: utf-8 -*-
+"""
+供应商不良行为查询工具 - 依赖清单
+
+安装命令: pip install -r requirements.txt
+"""
+
+# GUI相关
+Pillow>=8.0.0
+
+# 网页自动化
+playwright>=1.20.0
+
+# Word文档生成
+python-docx>=0.8.10
+
+# 加密存储
+keyring>=21.0.0
+cryptography>=3.0.0
+
+# 跨平台路径（Python 3.4+内置）
+# pathlib (Python 3.4+ 标准库)
+# cryptography 相关依赖会自动安装
