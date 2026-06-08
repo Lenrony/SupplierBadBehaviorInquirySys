@@ -6,6 +6,7 @@
 """
 
 import sys
+import logging
 import tkinter as tk
 from tkinter import messagebox
 import os
@@ -16,7 +17,23 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from config import APP_NAME
 from gui.login_window import LoginWindow, show_login_window
 from gui.main_window import MainWindow
-from utils.logger import logger
+from utils.logger import logger, setup_logger
+
+
+def parse_args():
+    """解析命令行参数"""
+    args = {
+        "debug": False,
+        "test": False
+    }
+    
+    for arg in sys.argv[1:]:
+        if arg in ("--debug", "-d"):
+            args["debug"] = True
+        elif arg in ("--test", "-t"):
+            args["test"] = True
+    
+    return args
 
 
 def check_tkinter_dependency():
@@ -60,6 +77,15 @@ def show_dependency_error(issues: list):
 
 def main():
     """主函数"""
+    # 解析命令行参数
+    args = parse_args()
+    
+    # 设置日志级别
+    if args["debug"]:
+        logger.setLevel(logging.DEBUG)
+        logger.debug("调试模式已启用")
+        logger.debug(f"命令行参数: {sys.argv}")
+    
     logger.info("=" * 60)
     logger.info(f"{APP_NAME} 启动")
     logger.info(f"Python版本: {sys.version}")
